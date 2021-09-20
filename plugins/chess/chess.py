@@ -194,3 +194,6 @@ class Chess(commands.Cog):
     if component.custom_id == "no":
       return await ctx.send("Request to draw denied.")
     return await game.end(2, 0.5, 0.5)
+
+def setup(bot: commands.Bot):
+  bot.add_cog(Chess(bot))
