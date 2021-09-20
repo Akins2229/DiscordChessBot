@@ -38,7 +38,7 @@ Note: Bot creation is currently not complete for version 7.0 and as such some co
 
 ### Prefix
 
-This bot does not have a prefix. It uses only slash commands.
+This bot does not have a prefix. It uses only slash commands. Though a slash command for it may be added in the future.
 
 ## TODO - v7.0.1
 
