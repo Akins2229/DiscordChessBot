@@ -1,8 +1,15 @@
-# ChessBot
-
-
-
-A Chess Bot Made in Python using discord.py and python-chess.
+<h1 align="center">ChessBot for Discord</h1>
+<p align="center">
+    <a href=""><img width="100" src=""/></a>
+</p>
+<p align="center">
+    <br>
+    <br>
+    <a href="https://opendebates.readthedocs.io/en/latest/?badge=latest">
+        <img src="https://readthedocs.org/projects/opendebates/badge/?version=latest" alt='Documentation Status'/>
+    </a>
+</p>
+<hr>
 
 ## Usage
 
