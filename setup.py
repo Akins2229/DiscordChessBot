@@ -23,4 +23,4 @@ def main() -> None:
   for cog in cogs:
     bot.load_extension(cog)
     
-  bot.run(os.getenv("TOKEN")
+  bot.run(os.getenv("TOKEN"))
