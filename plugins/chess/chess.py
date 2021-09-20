@@ -222,9 +222,51 @@ class Chess(commands.Cog):
     return await ctx.send(
       embed=discord.Embed(
         description="{0} - {1}".format(member.display_name, int(elo)),
-        color=random.choice(colors)
+        color=random.choice(embed_colors)
       ).set_author(name"Elo for user")
     ) 
 
+  @cog_ext.cog_slash(
+    name="profile",
+    description="Displays information on a user.",
+    options = [
+      {
+        "name": "member",
+        "description": "The user to display the information of.",
+        "type": 7,
+        "required": True
+      }
+    ]
+  )
+  async def _profile(
+    self,
+    ctx: SlashContext,
+    member: discord.Member
+  ) -> discord.Message:
+    if str(member.id) not in db["users"]:
+      elo = 600
+    else:
+      elo = db["users"][str(member.id)]['elo']
+    
+    #premptive message (made in class I'll finish this later)
+    
+    return await ctx.channel.send(
+      embed=discord.Embed(
+        description=status,
+        color=status_color
+      ).add_field(
+        title="Elo",
+        value=elo
+      ).add_field(
+        title="Wins",
+        value=wins
+      ).add_field(
+        title="Losses",
+        value=losses
+      ).add_field(
+        title="Draws",
+        value=draws
+      )
+  
 def setup(bot: commands.Bot):
   bot.add_cog(Chess(bot))
