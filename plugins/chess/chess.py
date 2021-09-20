@@ -266,7 +266,12 @@ class Chess(commands.Cog):
       ).add_field(
         title="Draws",
         value=draws
+      ).set_author(
+        name="User profile"
+      ).set_thumbnail(
+        url=member.avatar_url
       )
+    )
   
 def setup(bot: commands.Bot):
   bot.add_cog(Chess(bot))
