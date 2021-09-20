@@ -163,11 +163,11 @@ class Chess(commands.Cog):
     ctx: SlashContext
   ) -> discord.Message:
     game = games[ctx.channel.id]
-    return await game.end(5)
+    return await game.end(5, 0.0, 1.0)
   
   @cog_ext.cog_slash(
-    name="resign",
-    description="Allows you to resign in a game of chess."
+    name="draw",
+    description="Allows you to draw in a game of chess."
   )
   @in_game(self)
   @is_turn(self)
@@ -193,4 +193,4 @@ class Chess(commands.Cog):
     
     if component.custom_id == "no":
       return await ctx.send("Request to draw denied.")
-    return await game.end(2)
+    return await game.end(2, 0.5, 0.5)
