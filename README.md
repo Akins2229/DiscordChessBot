@@ -28,7 +28,7 @@ Note: Bot creation is currently not complete for version 7.0 and as such some co
 - [resign](https://github.com/Akins2229/DiscordChessBot/blob/0805751272f3339971044f4de59519eb82509d55/plugins/chess/chess.py#L157) - allows you to resign from the current match of chess; [in_game](https://github.com/Akins2229/DiscordChessBot/blob/0805751272f3339971044f4de59519eb82509d55/plugins/chess/chess.py#L48)
 - [draw](https://github.com/Akins2229/DiscordChessBot/blob/0805751272f3339971044f4de59519eb82509d55/plugins/chess/chess.py#L170) - allows you to offer the opponent a draw in a match of chess; [in_game](https://github.com/Akins2229/DiscordChessBot/blob/0805751272f3339971044f4de59519eb82509d55/plugins/chess/chess.py#L48)
 - [elo](https://github.com/Akins2229/DiscordChessBot/blob/0805751272f3339971044f4de59519eb82509d55/plugins/chess/chess.py#L200) `[member: discord.Member]` - allows you to get the elo of another user.
-- [profile]() `[member: discord.Member]` - displays the ChessBot profile of another user.
+- [profile](https://github.com/Akins2229/DiscordChessBot/blob/2dd00e4d546d60cb1567be03deef0e386533edc5/plugins/chess/chess.py#L229) `[member: discord.Member]` - displays the ChessBot profile of another user.
 
 **General**
 
