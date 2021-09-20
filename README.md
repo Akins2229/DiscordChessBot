@@ -1,6 +1,6 @@
 <h1 align="center">ChessBot for Discord</h1>
 <p align="center">
-    <a href=""><img width="100" src="https://user-images.githubusercontent.com/82357502/134055704-b7bf7cc7-f5ba-428f-811a-78567ce10669.png"/></a>
+    <a href="https://chessbot.readthedocs.io/en/latest/?badge=latest"><img width="100" src="https://user-images.githubusercontent.com/82357502/134055704-b7bf7cc7-f5ba-428f-811a-78567ce10669.png"/></a>
 </p>
 <p align="center">
     <br>
