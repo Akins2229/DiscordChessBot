@@ -249,14 +249,16 @@ class Chess(commands.Cog):
       losses = 0
       draws = 0
       status = "___"
-      status_color=discord.Colour.green()
+      status_color = discord.Colour.green()
     else:
-      elo = db["users"][str(member.id)]['elo']
-      wins = db["users"][str(member.id)]['wins']
-      losses = db["users"][str(member.id)]['losses']
-      draws = db["users"][str(member.id)]['draws']
-      status = db["users"][str(member.id)]['status']
-      status_color = db["users"][str(member.id)]['status_color']
+      #inline if mess basically just checks database for items or returns default values seen above
+      elo = db["users"][str(member.id)]['elo'] if 'elo' in db["users"][str(member.id)] else elo = 600
+      wins = db["users"][str(member.id)]['wins'] if 'wins' in db["users"][str(member.id)] else wins = 0
+      losses = db["users"][str(member.id)]['losses'] if 'losses' in db["users"][str(member.id)] else losses = 0
+      draws = db["users"][str(member.id)]['draws'] if 'draws' in db["users"][str(member.id)] else draws = 0
+      status = db["users"][str(member.id)]['status'] if 'status' in db["users"][str(member.id)] else status = "___"
+      status_color = db["users"][str(member.id)]['status_color'] if 'status_color' in db["users"][str(member.id)] else status_color = discord.Colour.green()
+      
       
     
     #premptive message (made in class I'll finish this later)
