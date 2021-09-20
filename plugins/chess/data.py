@@ -9,7 +9,25 @@ import chess.svg
 from replit import db
 from cairosvg import svg2png
 
-class IllegalMoveError:
+game_endings = {
+  1: "Win by checkmate.",
+  2: "Draw by agreement.",
+  3: "Draw by stalemate",
+  4: "Draw by fivefold repition.",
+  5: "Loss by resignation"
+}
+
+class InCheckError(Exception):
+  def __init__(
+    self,
+    move: str
+  ) -> None:
+    self.msg = "You cannot make move {} because you are in check.".format(move)
+    
+  def __repr__(self) -> str:
+    return self.msg
+
+class IllegalMoveError(Exception):
   def __init__(
     self,
     move: str
@@ -19,7 +37,7 @@ class IllegalMoveError:
   def __repr__(self) -> str:
     return self.msg
   
-class InvalidMoveFormatError:
+class InvalidMoveFormatError(Exception):
    def __init__(
     self,
     move: str
@@ -35,6 +53,8 @@ class Participant:
     discord_user: discord.Member
   ) -> None:
     self.user = discord_user
+    
+    self.post_elo = 0
     
   @property
   def elo(
@@ -69,9 +89,11 @@ class Game:
     
     self.board=chess.Board()
     
-    id = db["game_id"] += 1
+    self.id = db["game_id"] += 1
     
     self.channel=channel
+    
+    self.move = True
     
   def get_game_image(
     self
@@ -79,6 +101,17 @@ class Game:
     cairosvg.svg2png(bytestring=chess.svg.board(self.board, size=800), write_to="assets/games/{}.png".format(self.id))
     return 'assets/games/{}.png'.format(self.id)
   
+  def validate_position(
+    self
+  ) -> int:
+    if self.board.is_checkmate():
+      return 1
+    elif self.board.is_stalemate():
+      return 3
+    elif self.board.is_fivefold_repition():
+      return 4
+    else:
+      return 0
   
   def move(
     self,
@@ -89,5 +122,37 @@ class Game:
       if move not in self.board.legal_moves:
         raise IllegalMoveError(move)
       self.board.push(move_obj)
+      self.move = [True, False].remove(self.move)
+      if self.validate_position() == 0:
+        pass
+      else:
+        game.end(self.validate_position())
     except:
+      if self.board.is_check():
+        raise InCheckError(move)
       raise InvalidMoveFormatError(move)
+
+ def get_move_user(
+   self
+ ) -> discord.Member:
+  return self.white.user if self.move == True else return self.black.member
+
+async def end(
+  self,
+  type: int,
+  member_1_score: float,
+  member_2_score: float
+) -> discord.Message:
+  member_1 = self.white if self.move == True else member_1 = self.black
+  member_2 = [self.white, self.black].remove(member_1)
+  
+  member_1.add_points(18.5 * (1 / (1 + 10 ** ((member_2.elo - member_1.elo) / 400))) - member_1_score)
+  member_2.add_points(18.5 * (1 / (1 + 10 ** ((member_1.elo - member_2.elo) / 400))) - member_2_score)
+  
+  return await self.channel.send(
+    file=discord.File(fp=self.get_game_image(), filename="game.png"),
+    embed=discord.Embed(
+      description=game_endings[type],
+      color = discord.Colour.green()
+    ).set_author(name="Chess Match End.").add_field(title=member_1.user.display_name, value=member_1.elo).add_field(title=member_2.user.display_name, value=member_2.elo)
+  )
