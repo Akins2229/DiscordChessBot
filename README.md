@@ -10,7 +10,7 @@ A Chess Bot Made in Python using discord.py and python-chess.
 
 **Chess**
 
-- [https://github.com/Akins2229/DiscordChessBot/blob/0805751272f3339971044f4de59519eb82509d55/plugins/chess/chess.py#L76](play) `[member: discord.Member]` - allows you to play a match of chess against a given user; chess_channels_only
+- [play](https://github.com/Akins2229/DiscordChessBot/blob/0805751272f3339971044f4de59519eb82509d55/plugins/chess/chess.py#L76) `[member: discord.Member]` - allows you to play a match of chess against a given user; chess_channels_only
 - [https://github.com/Akins2229/DiscordChessBot/blob/0805751272f3339971044f4de59519eb82509d55/plugins/chess/chess.py#L133](move) `[move: str (uci)]` - allows you to move in a currently running match of chess; in_game, chess_channels_only
 - [https://github.com/Akins2229/DiscordChessBot/blob/0805751272f3339971044f4de59519eb82509d55/plugins/chess/chess.py#L157](resign) - allows you to resign from the current match of chess; in_game, chess_channels_only
 - [https://github.com/Akins2229/DiscordChessBot/blob/0805751272f3339971044f4de59519eb82509d55/plugins/chess/chess.py#L170](draw) - allows you to offer the opponent a draw in a match of chess; in_game, chess_channels_only
