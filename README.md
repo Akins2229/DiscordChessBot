@@ -11,6 +11,8 @@
 </p>
 <hr>
 
+Note: Bot creation is currently not complete for version 7.0 and as such some commmands may not work.
+
 ## Usage
 
 ### Commands
