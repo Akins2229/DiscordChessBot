@@ -146,6 +146,15 @@ async def end(
   member_1 = self.white if self.move == True else member_1 = self.black
   member_2 = [self.white, self.black].remove(member_1)
   
+  db[str(member_1.id)]['wins'] +=1 if member_1_score == 1.0
+  db[str(member_2.id)]['wins'] +=1 if member_2_score == 1.0
+  
+  db[str(member_1.id)]['losses'] +=1 if member_1_score == 0.0
+  db[str(member_2.id)]['losses'] +=1 if member_2_score == 1.0
+  
+  db[str(member_1.id)]['draws'] +=1 if member_1_score == 0.5
+  db[str(member_2.id)]['draws'] +=1 if member_2_score == 0.5
+  
   member_1.add_points(18.5 * (1 / (1 + 10 ** ((member_2.elo - member_1.elo) / 400))) - member_1_score)
   member_2.add_points(18.5 * (1 / (1 + 10 ** ((member_1.elo - member_2.elo) / 400))) - member_2_score)
   
