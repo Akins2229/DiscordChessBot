@@ -9,7 +9,7 @@
         <img src="https://readthedocs.org/projects/chessbot/badge/?version=latest" alt='Documentation Status'/>
     </a>
     <a href="https://discord.com/api/oauth2/authorize?client_id=864611397736726599&permissions=8&scope=bot%20applications.commands">
-        <img src="https://user-images.githubusercontent.com/82357502/134057181-c438aa2d-e814-4f95-87b6-e642ac45f000.png" alt="Bot invite"/>
+        <img src="https://user-images.githubusercontent.com/82357502/134057791-f9996005-b1be-47b1-8ab3-d685cf1dd905.png" alt="Bot invite"/>
     </a>
 
 </p>
