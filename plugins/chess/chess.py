@@ -11,6 +11,8 @@ from discord_slash import cog_ext, SlashContext
 from discord_slash.model import ButtonStyle
 from discord_slash.utils.manage_components import create_button, create_actionrow, wait_for_component
 
+from replit import db
+
 embed_colors = [
   discord.Colour.green(),
   discord.Colour.blue(),
@@ -194,6 +196,35 @@ class Chess(commands.Cog):
     if component.custom_id == "no":
       return await ctx.send("Request to draw denied.")
     return await game.end(2, 0.5, 0.5)
+
+  @cog_ext.cog_slash(
+    name="elo",
+    description="Returns the elo of a user.",
+    options = [
+      {
+        "name": "member",
+        "description": "Member you would like to play Chess against.",
+        "type": 7,
+        "required": True
+      } 
+    ]
+  )
+  async def _elo(
+    self,
+    ctx: SlashContext,
+    member: discord.Member
+  ) -> discord.Message:
+    if str(member.id) not in db["users"]:
+      elo = 600
+    else:
+      elo = db["users"][str(member.id)]['elo']
+   
+    return await ctx.send(
+      embed=discord.Embed(
+        description="{0} - {1}".format(member.display_name, int(elo)),
+        color=random.choice(colors)
+      ).set_author(name"Elo for user")
+    ) 
 
 def setup(bot: commands.Bot):
   bot.add_cog(Chess(bot))
