@@ -1,12 +1,12 @@
 <h1 align="center">ChessBot for Discord</h1>
 <p align="center">
-    <a href=""><img width="100" src=""/></a>
+    <a href=""><img width="100" src="https://user-images.githubusercontent.com/82357502/134055704-b7bf7cc7-f5ba-428f-811a-78567ce10669.png"/></a>
 </p>
 <p align="center">
     <br>
     <br>
-    <a href="https://opendebates.readthedocs.io/en/latest/?badge=latest">
-        <img src="https://readthedocs.org/projects/opendebates/badge/?version=latest" alt='Documentation Status'/>
+    <a href="https://chessbot.readthedocs.io/en/latest/?badge=latest">
+        <img src="https://readthedocs.org/projects/chessbot/badge/?version=latest" alt='Documentation Status'/>
     </a>
 </p>
 <hr>
