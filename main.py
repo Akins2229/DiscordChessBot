@@ -1,36 +1,26 @@
-import discord, utils, os
+import os
+
+import discord
 from discord.ext import commands
-from replit import db
 
-if 'game_id' not in db:
-  db['game_id'] = 1
-
-if 'tokens' not in db:
-  db['tokens'] = []
+from discord_slash import SlashCommand
 
 bot = commands.Bot(
-  command_prefix = utils.get_prefix,
-  case_insensitive=True,
-  description="A Chess Bot for Discord that uses a custom Elo rating system.",
-  owner_id=707643377621008447,
-  help_command=None,
-  strip_after_prefix=True
+  command_prefix="$",
+  self_bot=True, #silences all attempts at handling message commands
+  help_command=None, #silences discord default help commands
+  description="A Chess bot for discord that uses an elo rating system.",
 )
 
-@bot.event
-async def on_ready():
-  print("BOT STATUS - ONLINE\nDEVELOPED BY AKINS (C) 2021\nChess Bot v6.2.3")
+slash = SlashCommand(bot, sync_commands=True)
 
-plugins = [
-  'plugins.chess.elo', 
-  'plugins.chess.chess',
-  'plugins.core.setup',
-  'plugins.core.help',
-  'plugins.core.on_command_error'
-]
-
-if __name__ == '__main__':
-  for cog in plugins:
+def main() -> None:
+  cogs = [
+    'plugins.core.errors.on_slash_command_error',
+    'plugins.core.startup.on_ready',
+    'plugins.chess.chess'
+  ]
+  for cog in cogs:
     bot.load_extension(cog)
-
-bot.run(os.getenv("TOKEN"))
+    
+  bot.run(os.getenv("TOKEN")
