@@ -163,7 +163,7 @@ class Chess(commands.Cog):
     ctx: SlashContext
   ) -> discord.Message:
     game = games[ctx.channel.id]
-    return await game.end(1)
+    return await game.end(5)
   
   @cog_ext.cog_slash(
     name="resign",
