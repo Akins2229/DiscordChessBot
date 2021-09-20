@@ -245,8 +245,19 @@ class Chess(commands.Cog):
   ) -> discord.Message:
     if str(member.id) not in db["users"]:
       elo = 600
+      wins = 0
+      losses = 0
+      draws = 0
+      status = "___"
+      status_color=discord.Colour.green()
     else:
       elo = db["users"][str(member.id)]['elo']
+      wins = db["users"][str(member.id)]['wins']
+      losses = db["users"][str(member.id)]['losses']
+      draws = db["users"][str(member.id)]['draws']
+      status = db["users"][str(member.id)]['status']
+      status_color = db["users"][str(member.id)]['status_color']
+      
     
     #premptive message (made in class I'll finish this later)
     
