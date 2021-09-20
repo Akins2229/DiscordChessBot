@@ -103,15 +103,15 @@ class Game:
   
   def validate_position(
     self
-  ) -> int:
+  ) -> typing.Tuple[int, float, float]:
     if self.board.is_checkmate():
-      return 1
+      return (1, 1.0, 0.0, 1.0)
     elif self.board.is_stalemate():
-      return 3
+      return (3, 0.5, 0.5)
     elif self.board.is_fivefold_repition():
-      return 4
+      return (4, 0.5, 0.5)
     else:
-      return 0
+      return (0, 0.0, 0.0)
   
   def move(
     self,
@@ -123,10 +123,10 @@ class Game:
         raise IllegalMoveError(move)
       self.board.push(move_obj)
       self.move = [True, False].remove(self.move)
-      if self.validate_position() == 0:
+      if self.validate_position()[0] == 0:
         pass
       else:
-        game.end(self.validate_position())
+        game.end(self.validate_position()[0], self.validate_position()[1], self.validate_position()[2])
     except:
       if self.board.is_check():
         raise InCheckError(move)
