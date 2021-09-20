@@ -1,3 +1,6 @@
+import random
+import typing
+
 import discord
 
 from discord_slash import SlashContext
@@ -34,3 +37,15 @@ async def get_setup_type(
       category = discord.utils.get(ctx.guild.categories, id=db["guilds"][str(ctx.guild.id)]["category"])
       channel = await ctx.guild.create_text_channel("{} v. {}".fromat(ctx.author.display_name, member.display_name), category=category)
       return channel
+
+    
+def get_colors(
+  member_one: discord.Member,
+  member_two: discord.Member
+) -> typing.Tuple[discord.Member, discord.Member]:
+  choices = [member_one, member_two]
+  black = random.choice(choices)
+  for choice in choices:
+    if choice.id == black.id:
+      choices.remove(choice)
+  return (choices[0], black)
