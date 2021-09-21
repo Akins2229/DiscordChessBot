@@ -18,7 +18,8 @@ def main() -> None:
   cogs = [
     'plugins.core.errors.on_slash_command_error',
     'plugins.core.startup.on_ready',
-    'plugins.chess.chess'
+    'plugins.chess.chess',
+    'plugins.general.commands' # a general cog for commands to avoid overcategorization
   ]
   for cog in cogs:
     bot.load_extension(cog)
