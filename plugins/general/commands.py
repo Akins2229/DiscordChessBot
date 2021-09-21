@@ -1,3 +1,13 @@
+"""
+
+Copyright 2021 Akins
+
+Apache License 2.0
+
+ChessBot v7.0
+
+"""
+
 import discord
 from discord.ext import commands
 
@@ -106,7 +116,7 @@ class Commands(commands.Cog):
         color=discord.Colour.blue()
       ).set_image(
         url="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-      )
+      ).set_footer(text="Akins2229/DiscordChessBot v7.0)
     )
   
   @cog_ext.cog_slash(
