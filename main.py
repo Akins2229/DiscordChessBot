@@ -1,3 +1,14 @@
+"""
+
+Copyright 2021 Akins
+
+Apache License 2.0
+
+ChessBot v7.0
+
+"""
+
+
 import os
 
 import discord
