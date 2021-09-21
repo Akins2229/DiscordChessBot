@@ -30,10 +30,10 @@
 
 **General**
 
-- [setup]() `[type: int (choices)]` `[channel: discord.Channel (optional)]` - sets up the server for Chess Bot usage.
-- [github]() - returns a link to this Github repository
-- [set-status]() `[status: str]` - sets your status to appear on your Chess Bot profile.
-- [set-status-color]() `[color: int (0x hexadecimal)]` - allows you to set the color that appears on your ChessBot profile. 
+- [setup](https://github.com/Akins2229/DiscordChessBot/blob/b8717e36c91d9b9a279a6f12d12c84727efe89b1/plugins/general/commands.py#L22) `[type: int (choices)]` `[channel: discord.Channel (optional)]` - sets up the server for Chess Bot usage.
+- [github](https://github.com/Akins2229/DiscordChessBot/blob/b8717e36c91d9b9a279a6f12d12c84727efe89b1/plugins/general/commands.py#L94) - returns a link to this Github repository
+- [set-status](https://github.com/Akins2229/DiscordChessBot/blob/b8717e36c91d9b9a279a6f12d12c84727efe89b1/plugins/general/commands.py#L113) `[status: str]` - sets your status to appear on your Chess Bot profile.
+- [set-status-color](https://github.com/Akins2229/DiscordChessBot/blob/b8717e36c91d9b9a279a6f12d12c84727efe89b1/plugins/general/commands.py#L175) `[color: int (0x hexadecimal)]` - allows you to set the color that appears on your ChessBot profile. 
 
 ### Prefix
 
