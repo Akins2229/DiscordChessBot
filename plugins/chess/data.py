@@ -1,3 +1,4 @@
+import typing
 import discord
 from discord.ext import commands
 
@@ -7,7 +8,7 @@ import chess
 import chess.svg
 
 from replit import db
-from cairosvg import svg2png
+import cairosvg
 
 game_endings = {
   1: "Win by checkmate.",
@@ -38,12 +39,13 @@ class IllegalMoveError(Exception):
     return self.msg
   
 class InvalidMoveFormatError(Exception):
-   def __init__(
+  def __init__(
     self,
     move: str
   ) -> None:
     self.msg = "The move {} you attempted is in an invalid move format.".format(move)
     
+
   def __repr__(self) -> str:
     return self.msg 
 
@@ -82,14 +84,15 @@ class Game:
     self,
     white: Participant,
     black: Participant,
-    channel: discord.Channel
+    channel: discord.TextChannel
   ) -> None:
     self.white=white
     self.black=black
     
     self.board=chess.Board()
     
-    self.id = db["game_id"] += 1
+    self.id = db["game_id"] + 1
+    db["game_id"] += 1
     
     self.channel=channel
     
@@ -126,16 +129,19 @@ class Game:
       if self.validate_position()[0] == 0:
         pass
       else:
-        game.end(self.validate_position()[0], self.validate_position()[1], self.validate_position()[2])
+        self.end(self.validate_position()[0], self.validate_position()[1], self.validate_position()[2])
     except:
       if self.board.is_check():
         raise InCheckError(move)
       raise InvalidMoveFormatError(move)
 
- def get_move_user(
+  def get_move_user(
    self
- ) -> discord.Member:
-  return self.white.user if self.move == True else return self.black.member
+  ) -> discord.Member:
+    if self.move == True:
+      return self.white.user
+    else:
+      return self.black.member
 
 async def end(
   self,
@@ -143,17 +149,20 @@ async def end(
   member_1_score: float,
   member_2_score: float
 ) -> discord.Message:
-  member_1 = self.white if self.move == True else member_1 = self.black
+  if self.move == True:
+    member_1 = self.white
+  else:
+     member_1 = self.black
   member_2 = [self.white, self.black].remove(member_1)
   
-  db[str(member_1.id)]['wins'] +=1 if member_1_score == 1.0
-  db[str(member_2.id)]['wins'] +=1 if member_2_score == 1.0
+  if member_1_score == 1.0: db[str(member_1.id)]['wins'] +=1
+  if member_2_score == 1.0: db[str(member_2.id)]['wins'] +=1
   
-  db[str(member_1.id)]['losses'] +=1 if member_1_score == 0.0
-  db[str(member_2.id)]['losses'] +=1 if member_2_score == 1.0
+  if member_1_score == 0.0: db[str(member_1.id)]['losses'] +=1
+  if member_2_score == 1.0: db[str(member_2.id)]['losses'] +=1
   
-  db[str(member_1.id)]['draws'] +=1 if member_1_score == 0.5
-  db[str(member_2.id)]['draws'] +=1 if member_2_score == 0.5
+  if member_1_score == 0.5: db[str(member_1.id)]['draws'] +=1
+  if member_2_score == 0.5: db[str(member_2.id)]['draws'] +=1
   
   member_1.add_points(18.5 * (1 / (1 + 10 ** ((member_2.elo - member_1.elo) / 400))) - member_1_score)
   member_2.add_points(18.5 * (1 / (1 + 10 ** ((member_1.elo - member_2.elo) / 400))) - member_2_score)

@@ -35,7 +35,7 @@ class Commands(commands.Cog):
             name="Channels",
             value=2
           ),
-          create_option(
+          create_choice(
             name="Categories",
             value=3
           )
@@ -43,7 +43,7 @@ class Commands(commands.Cog):
         option_type=4,
         required=True
       ),
-      create_options(
+      create_option(
         name="channel",
         description="The channel you want to use when using ChessBot (for use in Threads and Channels types.",
         option_type=7,
@@ -55,7 +55,7 @@ class Commands(commands.Cog):
     self,
     ctx: SlashContext,
     type: int,
-    channel: discord.Channel
+    channel: discord.TextChannel
   ) -> discord.Message:
     if channel:
       if type == 1:
@@ -140,14 +140,38 @@ class Commands(commands.Cog):
     # Return Profile
     #
     
+    member = ctx.author
     
-    #inline if mess to set non-existing values to default values
-    elo = db["users"][str(member.id)]['elo'] if 'elo' in db["users"][str(member.id)] else elo = 600
-    wins = db["users"][str(member.id)]['wins'] if 'wins' in db["users"][str(member.id)] else wins = 0
-    losses = db["users"][str(member.id)]['losses'] if 'losses' in db["users"][str(member.id)] else losses = 0
-    draws = db["users"][str(member.id)]['draws'] if 'draws' in db["users"][str(member.id)] else draws = 0
-    status = db["users"][str(member.id)]['status'] if 'status' in db["users"][str(member.id)] else status = "___"
-    status_color = db["users"][str(member.id)]['status_color'] if 'status_color' in db["users"][str(member.id)] else status_color = discord.Colour.green()
+    if 'elo' in db["users"][str(member.id)]:
+      elo = db["users"][str(member.id)]['elo']
+    else:
+      elo = 600
+
+    if 'wins' in db["users"][str(member.id)]:
+      wins = db["users"][str(member.id)]['wins']
+    else:
+      wins = 0
+
+    if 'losses' in db["users"][str(member.id)]:
+      losses = db["users"][str(member.id)]['losses']
+    else:
+      losses = 0
+
+    if 'draws' in db["users"][str(member.id)]:
+      draws = db["users"][str(member.id)]['draws']
+
+    else: 
+      draws = 0
+
+    if 'status' in db["users"][str(member.id)]:
+      status = db["users"][str(member.id)]['status']
+    else:
+       status = "___"
+
+    if 'status_color' in db["users"][str(member.id)]:
+      status_color = db["users"][str(member.id)]['status_color']
+    else:
+      status_color = discord.Colour.green()
     
     return await ctx.channel.send(
       embed=discord.Embed(
@@ -183,21 +207,21 @@ class Commands(commands.Cog):
         choices = [
           create_choice(
             name="Green",
-            value=discord.Colour.green()
+            value=0x2ECC71
           ),
           create_choice(
             name="Red",
-            value=discord.Colour.red()
+            value=0xE74C3C
           ),
           create_choice(
             name="Purple",
-            value=discord.Colour.dark_purple()
+            value=0x71368A
           ),
-          create_option(
+          create_choice(
             name="Gold",
-            value=discord.Colour.gold()
+            value=0xF1C40F
           )
-        ]
+        ],
         required=False
       )
     ]
@@ -210,7 +234,9 @@ class Commands(commands.Cog):
     if not color:
       color=discord.Colour.green()
     
-        if str(ctx.author.id) not in db["users"]:
+    member = ctx.author
+
+    if str(ctx.author.id) not in db["users"]:
       db["users"][str(ctx.author.id)] = {}
       db["users"][str(ctx.author.id)]['elo'] = 600
       db["users"][str(ctx.author.id)]['wins'] = 0
@@ -225,13 +251,36 @@ class Commands(commands.Cog):
     #
     
     
-    #inline if mess to set non-existing values to default values
-    elo = db["users"][str(member.id)]['elo'] if 'elo' in db["users"][str(member.id)] else elo = 600
-    wins = db["users"][str(member.id)]['wins'] if 'wins' in db["users"][str(member.id)] else wins = 0
-    losses = db["users"][str(member.id)]['losses'] if 'losses' in db["users"][str(member.id)] else losses = 0
-    draws = db["users"][str(member.id)]['draws'] if 'draws' in db["users"][str(member.id)] else draws = 0
-    status = db["users"][str(member.id)]['status'] if 'status' in db["users"][str(member.id)] else status = "___"
-    status_color = db["users"][str(member.id)]['status_color'] if 'status_color' in db["users"][str(member.id)] else status_color = discord.Colour.green()
+    if 'elo' in db["users"][str(member.id)]:
+      elo = db["users"][str(member.id)]['elo']
+    else:
+      elo = 600
+
+    if 'wins' in db["users"][str(member.id)]:
+      wins = db["users"][str(member.id)]['wins']
+    else:
+      wins = 0
+
+    if 'losses' in db["users"][str(member.id)]:
+      losses = db["users"][str(member.id)]['losses']
+    else:
+      losses = 0
+
+    if 'draws' in db["users"][str(member.id)]:
+      draws = db["users"][str(member.id)]['draws']
+
+    else: 
+      draws = 0
+
+    if 'status' in db["users"][str(member.id)]:
+      status = db["users"][str(member.id)]['status']
+    else:
+       status = "___"
+
+    if 'status_color' in db["users"][str(member.id)]:
+      status_color = db["users"][str(member.id)]['status_color']
+    else:
+      status_color = discord.Colour.green()
     
     return await ctx.channel.send(
       embed=discord.Embed(

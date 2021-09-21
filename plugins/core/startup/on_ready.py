@@ -6,7 +6,7 @@ class OnReady(commands.Cog):
     self.bot = bot
     
   @commands.Cog.listener()
-  async def on_ready() -> None:
+  async def on_ready(self) -> None:
     return print(
       "BOT STATUS - ONLINE\nDEVELOPED BY AKINS (C) 2021\nChess Bot v6.2.3"
     )

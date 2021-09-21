@@ -4,8 +4,9 @@ import typing
 import discord
 
 from discord_slash import SlashContext
+from replit import db
 
-MustBePassedInGuildError:
+class MustBePassedInGuild(Exception):
   def __init__(self, command_name: str) -> None:
     self.message="Command {} must be passed within a guild (server)."
   

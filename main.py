@@ -5,6 +5,14 @@ from discord.ext import commands
 
 from discord_slash import SlashCommand
 
+from replit import db
+
+if "users" not in db:
+  db["users"] = {}
+
+if "guilds" not in db:
+  db["guilds"] = {}
+
 bot = commands.Bot(
   command_prefix="$",
   self_bot=True, #silences all attempts at handling message commands
@@ -25,3 +33,6 @@ def main() -> None:
     bot.load_extension(cog)
     
   bot.run(os.getenv("TOKEN"))
+
+if __name__ == "__main__":
+  main()
