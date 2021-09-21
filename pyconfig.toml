@@ -1,0 +1,61 @@
+[tool.poetry]
+name = "chessbot"
+version = "7.0"
+description = "A Chess Bot Made in Python using discord.py and python-chess."
+authors = ["Akins <akins2229@gmail.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+homepage = "https://github.com/Akins2229/DiscordChessBot"
+repository = "https://github.com/Akins2229/DiscordChessBot"
+documentation = "https://chessbot.readthedocs.io/"
+keywords = [
+    "discord",
+    "bot",
+    "chess",
+    "elo",
+    "python"
+]
+classifiers = [
+    "Development Status :: 3 - Full",
+	"Environment :: Console",
+	"Framework :: AsyncIO",
+	"Intended Audience :: End Users/Desktop",
+	"License :: OSI Approved :: Apache Software License",
+	"Natural Language :: English",
+	"Operating System :: OS Independent",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Communications :: Chat"
+]
+packages = [
+    { include = "chessbot"}
+]
+include = [
+    ".readthedocs.yaml",
+    "plugins/*",
+    "poetry.lock"
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+replit = "^3.2.4"
+typing-extensions = "^3.10.0"
+yarl = "^1.6.3"
+aiohttp = "^3.7.4"
+CairoSVG = "^2.5.2"
+orjson = "^3.6.3"
+chess = "^1.6.1"
+discord.py= "^1.7.2"
+
+[tool.poetry.dev-dependencies]
+Sphinx = "^4.0.2"
+sphinx-rtd-theme = "^0.5.2"
+bump2version = "^1.0.1"
+tox = "^3.23.1"
+check-manifest = "^0.46"
+readme-renderer = {extras = ["md"], version = "^29.0"}
+twine = "^3.4.1"
+black = "^21.6b0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
