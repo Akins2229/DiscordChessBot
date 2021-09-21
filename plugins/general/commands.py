@@ -101,10 +101,9 @@ class Commands(commands.Cog):
   ) -> discord.Message:
     return await ctx.send(
       embed=discord.Embed(
+        title="Github repository",
+        url="https://github.com/Akins2229/DiscordChessBot/",
         color=discord.Colour.blue()
-      ).set_author(
-        name="Github.com/Akins2229/DiscordChessBot",
-        url="https://github.com/Akins2229/DiscordChessBot"
       ).set_image(
         url="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
       )
@@ -178,16 +177,16 @@ class Commands(commands.Cog):
         description=status,
         color=status_color
       ).add_field(
-        title="Elo",
+        name="Elo",
         value=elo
       ).add_field(
-        title="Wins",
+        name="Wins",
         value=wins
       ).add_field(
-        title="Losses",
+        name="Losses",
         value=losses
       ).add_field(
-        title="Draws",
+        name="Draws",
         value=draws
       ).set_author(
         name="Changed Status!"
@@ -287,16 +286,16 @@ class Commands(commands.Cog):
         description=status,
         color=status_color
       ).add_field(
-        title="Elo",
+        name="Elo",
         value=elo
       ).add_field(
-        title="Wins",
+        name="Wins",
         value=wins
       ).add_field(
-        title="Losses",
+        name="Losses",
         value=losses
       ).add_field(
-        title="Draws",
+        name="Draws",
         value=draws
       ).set_author(
         name="Changed Status!"

@@ -38,7 +38,7 @@ class Chess(commands.Cog):
       {
         "name": "member",
         "description": "Member you would like to play Chess against.",
-        "type": 7,
+        "type": 6,
         "required": True
       } 
     ]
@@ -101,7 +101,7 @@ class Chess(commands.Cog):
       {
         "name": "move",
         "description": "The move you want to move in uci format ex: e2e4",
-        "type": 4,
+        "type": 3,
         "required": True
       }
     ]
@@ -175,7 +175,7 @@ class Chess(commands.Cog):
       {
         "name": "member",
         "description": "Member you would like to play Chess against.",
-        "type": 7,
+        "type": 6,
         "required": False
       } 
     ]
@@ -207,7 +207,7 @@ class Chess(commands.Cog):
       {
         "name": "member",
         "description": "The user to display the information of.",
-        "type": 7,
+        "type": 6,
         "required": False
       }
     ]
@@ -268,16 +268,16 @@ class Chess(commands.Cog):
         description=status,
         color=status_color
       ).add_field(
-        title="Elo",
+        name="Elo",
         value=elo
       ).add_field(
-        title="Wins",
+        name="Wins",
         value=wins
       ).add_field(
-        title="Losses",
+        name="Losses",
         value=losses
       ).add_field(
-        title="Draws",
+        name="Draws",
         value=draws
       ).set_author(
         name="User profile"
