@@ -13,6 +13,9 @@ if "users" not in db:
 if "guilds" not in db:
   db["guilds"] = {}
 
+if "game_id" not in db:
+  db["game_id"] = 1
+
 bot = commands.Bot(
   command_prefix="$",
   self_bot=True, #silences all attempts at handling message commands
