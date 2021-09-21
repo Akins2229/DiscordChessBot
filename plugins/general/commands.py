@@ -168,7 +168,7 @@ class Commands(commands.Cog):
       ).set_author(
         name="Changed Status!"
       ).set_thumbnail(
-        url=member.avatar_url
+        url=ctx.author.avatar_url
       )
     )
   
@@ -252,7 +252,7 @@ class Commands(commands.Cog):
       ).set_author(
         name="Changed Status!"
       ).set_thumbnail(
-        url=member.avatar_url
+        url=ctx.author.avatar_url
       )
     )
   
