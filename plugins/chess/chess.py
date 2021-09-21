@@ -205,7 +205,7 @@ class Chess(commands.Cog):
         "name": "member",
         "description": "Member you would like to play Chess against.",
         "type": 7,
-        "required": True
+        "required": False
       } 
     ]
   )
@@ -214,6 +214,9 @@ class Chess(commands.Cog):
     ctx: SlashContext,
     member: discord.Member
   ) -> discord.Message:
+    if not member:
+      member=ctx.author
+    
     if str(member.id) not in db["users"]:
       elo = 600
     else:
@@ -234,7 +237,7 @@ class Chess(commands.Cog):
         "name": "member",
         "description": "The user to display the information of.",
         "type": 7,
-        "required": True
+        "required": False
       }
     ]
   )
@@ -243,6 +246,9 @@ class Chess(commands.Cog):
     ctx: SlashContext,
     member: discord.Member
   ) -> discord.Message:
+    if not member:
+      member=ctx.author
+    
     if str(member.id) not in db["users"]:
       elo = 600
       wins = 0
