@@ -1,3 +1,13 @@
+"""
+
+Copyright 2021 Akins
+
+Apache License 2.0
+
+ChessBot v7.0
+
+"""
+
 import discord
 from discord.ext import commands
 
@@ -8,7 +18,7 @@ class OnReady(commands.Cog):
   @commands.Cog.listener()
   async def on_ready(self) -> None:
     return print(
-      "BOT STATUS - ONLINE\nDEVELOPED BY AKINS (C) 2021\nChess Bot v6.2.3"
+      "BOT STATUS - ONLINE\nDEVELOPED BY AKINS (C) 2021\nChess Bot v7.0"
     )
 
 def setup(bot: commands.Bot):
