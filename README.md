@@ -32,7 +32,8 @@
 
 - [setup]() `[type: int (choices)]` `[channel: discord.Channel (optional)]` - sets up the server for Chess Bot usage.
 - [github]() - returns a link to this Github repository
-- [set-status]() `[status: str]` - sets your status to appear on your Chess Bot profile. 
+- [set-status]() `[status: str]` - sets your status to appear on your Chess Bot profile.
+- [set-status-color]() `[color: int (0x hexadecimal)]` - allows you to set the color that appears on your ChessBot profile. 
 
 ### Prefix
 
