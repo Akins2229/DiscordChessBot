@@ -24,16 +24,16 @@ async def get_setup_type(
     if str(ctx.guild.id) not in db["guilds"]:
       return ctx.channel.id
     
-    elif db["guilds"][str(ctx.guild.id)] == 1:
+    elif db["guilds"][str(ctx.guild.id)]["type"] == 1:
       channel = discord.get_channel(db["guilds"][str(ctx.guild.id)]["channel"])
       thread = await channel.create_thread(name="{0} v. {1}".format(ctx.author.display_name, member.display_name))
       return thread
     
-    elif db["guilds"][str(ctx.guild.id)] == 2:
+    elif db["guilds"][str(ctx.guild.id)]["type"] == 2:
       channel = discord.get_channel(db["guilds"][str(ctx.guild.id)]["channel"])
       return channel
     
-    elif db["guilds"][str(ctx.guild.id)] == 3:
+    elif db["guilds"][str(ctx.guild.id)]["type"] == 3:
       category = discord.utils.get(ctx.guild.categories, id=db["guilds"][str(ctx.guild.id)]["category"])
       channel = await ctx.guild.create_text_channel("{} v. {}".fromat(ctx.author.display_name, member.display_name), category=category)
       return channel
