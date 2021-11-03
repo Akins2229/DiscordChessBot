@@ -28,6 +28,19 @@ game_endings = {
   5: "Loss by resignation"
 }
 
+#prep for possible switch to brownie point algorithm
+
+# import typing, math
+
+# def points(
+#   i: int,
+#   j: int
+# ) -> typing.Tuple[int, int]:
+#   k = int(math.sqrt(i + j))
+#   point_factor = abs(round((i+j/((200 * k) - i + j)))-(i+j/((200 * k) - i + j)))
+#   return (i + (k * point_factor), j - (k * point_factor)) # value[0] = i, value[1] = j
+
+
 class InCheckError(Exception):
   def __init__(
     self,
