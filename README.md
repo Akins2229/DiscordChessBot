@@ -41,8 +41,8 @@ The bot's prefix is "ch!".
 
 ## TODO - v7.1.0
 
-- ~~[ ] better account system~~
+- ~~better account system~~
 - [ ] help command
 - [ ] global elo leaderboard
-- ~~[ ] guild system to increase reasoning for competition~~
-- ~~[ ] add voice channel support~~
+- ~~guild system to increase reasoning for competition~~
+- ~~add voice channel support~~
