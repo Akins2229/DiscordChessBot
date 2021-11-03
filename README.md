@@ -33,7 +33,8 @@
 - [setup](https://github.com/Akins2229/DiscordChessBot/blob/7812b1b483c31836f961970cd64837ee7ebcf273/plugins/general/commands.py#L37) `[type: int (choices)]` `[channel: discord.Channel (optional)]` - sets up the server for Chess Bot usage.
 - [github](https://github.com/Akins2229/DiscordChessBot/blob/7812b1b483c31836f961970cd64837ee7ebcf273/plugins/general/commands.py#L109) - returns a link to this Github repository
 - [set-status](https://github.com/Akins2229/DiscordChessBot/blob/7812b1b483c31836f961970cd64837ee7ebcf273/plugins/general/commands.py#L139) `[status: str]` - sets your status to appear on your Chess Bot profile.
-- [set-status-color](https://github.com/Akins2229/DiscordChessBot/blob/7812b1b483c31836f961970cd64837ee7ebcf273/plugins/general/commands.py#L226) `[color: int (0x hexadecimal)]` - allows you to set the color that appears on your ChessBot profile. 
+- [set-status-color](https://github.com/Akins2229/DiscordChessBot/blob/7812b1b483c31836f961970cd64837ee7ebcf273/plugins/general/commands.py#L226) `[color: int (0x hexadecimal)]` - allows you to set the color that appears on your ChessBot profile.
+- [help](https://github.com/Akins2229/DiscordChessBot/blob/8653fec3014a889f18983d7e653b29ffcbbdc3ac/plugins/core/help.py#L15) - Displays information about the bot's commands.
 
 ### Prefix
 
@@ -42,7 +43,7 @@ The bot's prefix is "ch!".
 ## TODO - v7.1.0
 
 - ~~better account system~~
-- [ ] help command
+- [X] help command
 - [ ] global elo leaderboard
 - ~~guild system to increase reasoning for competition~~
 - ~~add voice channel support~~
