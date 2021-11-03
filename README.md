@@ -21,27 +21,29 @@
 
 **Chess**
 
-- [play](https://github.com/Akins2229/DiscordChessBot/blob/0805751272f3339971044f4de59519eb82509d55/plugins/chess/chess.py#L76) `[member: discord.Member]` - allows you to play a match of chess against a given user; [no_current_games](https://github.com/Akins2229/DiscordChessBot/blob/0805751272f3339971044f4de59519eb82509d55/plugins/chess/chess.py#L25), [not_against_self](https://github.com/Akins2229/DiscordChessBot/blob/0805751272f3339971044f4de59519eb82509d55/plugins/chess/chess.py#L37)
-- [move](https://github.com/Akins2229/DiscordChessBot/blob/0805751272f3339971044f4de59519eb82509d55/plugins/chess/chess.py#L133) `[move: str (uci)]` - allows you to move in a currently running match of chess; [in_game](https://github.com/Akins2229/DiscordChessBot/blob/0805751272f3339971044f4de59519eb82509d55/plugins/chess/chess.py#L48)
-- [resign](https://github.com/Akins2229/DiscordChessBot/blob/0805751272f3339971044f4de59519eb82509d55/plugins/chess/chess.py#L157) - allows you to resign from the current match of chess; [in_game](https://github.com/Akins2229/DiscordChessBot/blob/0805751272f3339971044f4de59519eb82509d55/plugins/chess/chess.py#L48)
-- [draw](https://github.com/Akins2229/DiscordChessBot/blob/0805751272f3339971044f4de59519eb82509d55/plugins/chess/chess.py#L170) - allows you to offer the opponent a draw in a match of chess; [in_game](https://github.com/Akins2229/DiscordChessBot/blob/0805751272f3339971044f4de59519eb82509d55/plugins/chess/chess.py#L48)
-- [elo](https://github.com/Akins2229/DiscordChessBot/blob/0805751272f3339971044f4de59519eb82509d55/plugins/chess/chess.py#L200) `[member: discord.Member]` - allows you to get the elo of another user.
-- [profile](https://github.com/Akins2229/DiscordChessBot/blob/2dd00e4d546d60cb1567be03deef0e386533edc5/plugins/chess/chess.py#L229) `[member: discord.Member]` - displays the ChessBot profile of another user.
+- [play](https://github.com/Akins2229/DiscordChessBot/blob/7812b1b483c31836f961970cd64837ee7ebcf273/plugins/chess/chess.py#L44) `[member: discord.Member]` - allows you to play a match of chess against a given user; [no_current_games](https://github.com/Akins2229/DiscordChessBot/blob/0805751272f3339971044f4de59519eb82509d55/plugins/chess/chess.py#L25), [not_against_self](https://github.com/Akins2229/DiscordChessBot/blob/0805751272f3339971044f4de59519eb82509d55/plugins/chess/chess.py#L37)
+- [move](https://github.com/Akins2229/DiscordChessBot/blob/7812b1b483c31836f961970cd64837ee7ebcf273/plugins/chess/chess.py#L106) `[move: str (uci)]` - allows you to move in a currently running match of chess; [in_game](https://github.com/Akins2229/DiscordChessBot/blob/0805751272f3339971044f4de59519eb82509d55/plugins/chess/chess.py#L48)
+- [resign](https://github.com/Akins2229/DiscordChessBot/blob/7812b1b483c31836f961970cd64837ee7ebcf273/plugins/chess/chess.py#L126) - allows you to resign from the current match of chess; [in_game](https://github.com/Akins2229/DiscordChessBot/blob/0805751272f3339971044f4de59519eb82509d55/plugins/chess/chess.py#L48)
+- [draw](https://github.com/Akins2229/DiscordChessBot/blob/7812b1b483c31836f961970cd64837ee7ebcf273/plugins/chess/chess.py#L143) - allows you to offer the opponent a draw in a match of chess; [in_game](https://github.com/Akins2229/DiscordChessBot/blob/0805751272f3339971044f4de59519eb82509d55/plugins/chess/chess.py#L48)
+- [elo](https://github.com/Akins2229/DiscordChessBot/blob/7812b1b483c31836f961970cd64837ee7ebcf273/plugins/chess/chess.py#L182) `[member: discord.Member]` - allows you to get the elo of another user.
+- [profile](https://github.com/Akins2229/DiscordChessBot/blob/7812b1b483c31836f961970cd64837ee7ebcf273/plugins/chess/chess.py#L208) `[member: discord.Member]` - displays the ChessBot profile of another user.
 
 **General**
 
-- [setup](https://github.com/Akins2229/DiscordChessBot/blob/b8717e36c91d9b9a279a6f12d12c84727efe89b1/plugins/general/commands.py#L22) `[type: int (choices)]` `[channel: discord.Channel (optional)]` - sets up the server for Chess Bot usage.
-- [github](https://github.com/Akins2229/DiscordChessBot/blob/b8717e36c91d9b9a279a6f12d12c84727efe89b1/plugins/general/commands.py#L94) - returns a link to this Github repository
-- [set-status](https://github.com/Akins2229/DiscordChessBot/blob/b8717e36c91d9b9a279a6f12d12c84727efe89b1/plugins/general/commands.py#L113) `[status: str]` - sets your status to appear on your Chess Bot profile.
-- [set-status-color](https://github.com/Akins2229/DiscordChessBot/blob/b8717e36c91d9b9a279a6f12d12c84727efe89b1/plugins/general/commands.py#L175) `[color: int (0x hexadecimal)]` - allows you to set the color that appears on your ChessBot profile. 
+- [setup](https://github.com/Akins2229/DiscordChessBot/blob/7812b1b483c31836f961970cd64837ee7ebcf273/plugins/general/commands.py#L37) `[type: int (choices)]` `[channel: discord.Channel (optional)]` - sets up the server for Chess Bot usage.
+- [github](https://github.com/Akins2229/DiscordChessBot/blob/7812b1b483c31836f961970cd64837ee7ebcf273/plugins/general/commands.py#L109) - returns a link to this Github repository
+- [set-status](https://github.com/Akins2229/DiscordChessBot/blob/7812b1b483c31836f961970cd64837ee7ebcf273/plugins/general/commands.py#L139) `[status: str]` - sets your status to appear on your Chess Bot profile.
+- [set-status-color](https://github.com/Akins2229/DiscordChessBot/blob/7812b1b483c31836f961970cd64837ee7ebcf273/plugins/general/commands.py#L226) `[color: hexadecimal]` - allows you to set the color that appears on your ChessBot profile.
+- [help](https://github.com/Akins2229/DiscordChessBot/blob/8653fec3014a889f18983d7e653b29ffcbbdc3ac/plugins/core/help.py#L15) `[command: str]` - Displays information about the bot's commands.
 
 ### Prefix
 
-This bot does not have a prefix. It uses only slash commands. Though a slash command for it may be added in the future.
+The bot's prefix is "ch!". 
 
-## TODO - v7.0.1
+## TODO - v7.1.0
 
-- better account system
-- global elo leaderboard
-- guild system to increase reasoning for competition
-- add voice channel support
+- ~~better account system~~
+- [X] help command
+- [ ] global elo leaderboard
+- ~~guild system to increase reasoning for competition~~
+- ~~add voice channel support~~

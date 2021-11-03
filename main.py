@@ -25,11 +25,11 @@ if "guilds" not in db:
   db["guilds"] = {}
 
 if "game_id" not in db:
-  db["game_id"] = 1
-
+  db["game_id"] = 1  
+  
 bot = commands.Bot(
-  command_prefix="$",
-  self_bot=True, #silences all attempts at handling message commands
+  command_prefix="ch!",
+#   self_bot=True, #silences all attempts at handling message commands
   help_command=None, #silences discord default help commands
   description="A Chess bot for discord that uses an elo rating system.",
 )
@@ -38,7 +38,7 @@ slash = SlashCommand(bot, sync_commands=True)
 
 def main() -> None:
   cogs = [
-    'plugins.core.errors.on_slash_command_error',
+    'plugins.core.errors.on_command_error',
     'plugins.core.startup.on_ready',
     'plugins.chess.chess',
     'plugins.general.commands' # a general cog for commands to avoid overcategorization
