@@ -28,7 +28,12 @@ class InvalidTypeError(Exception):
 class Commands(commands.Cog):
   def __init__(self, bot: commands.Bot) -> None:
     self.bot=bot
-    
+ 
+
+  #  
+  # Keeping this as a slash command because its usage is a bit convoluted. 
+  # 
+  
   @cog_ext.cog_slash(
     name="setup",
     description="Allows you to set up a server for ChessBot usage.",
@@ -63,7 +68,7 @@ class Commands(commands.Cog):
   )
   async def _setup(
     self,
-    ctx: SlashContext,
+    ctx: commands.Context,
     type: int,
     channel: discord.TextChannel
   ) -> discord.Message:
@@ -101,15 +106,17 @@ class Commands(commands.Cog):
         raise InvalidTypeError(type)
         
 
-  @cog_ext.cog_slash(
+  @commands.command(
     name="github",
-    description="Returns a link to the bot's github repository."
+    description="Returns a link to the bot's github repository.",
+    brief="Sends the bot's github repository.",
+    usage=""
   )
   async def _github(
     self,
-    ctx: SlashContext
+    ctx: commands.Context
   ) -> discord.Message:
-    return await ctx.send(
+    await ctx.send(
       embed=discord.Embed(
         title="Github repository",
         url="https://github.com/Akins2229/DiscordChessBot/",
@@ -118,22 +125,26 @@ class Commands(commands.Cog):
         url="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
       ).set_footer(text="Akins2229/DiscordChessBot v7.0)
     )
+      
+    return await ctx.send(
+      embed=discord.Embed(
+        title="Message Commands Branch",
+        url="https://github.com/Akins2229/DiscordChessBot/tree/message-commands",
+        color=discord.Colour.blue()
+      ).set_image(
+        url="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+      ).set_footer(text="Akins2229/DiscordChessBot v7.0)
+    )
   
-  @cog_ext.cog_slash(
+  @commands.command(
     name="set-status",
     description="Allows you to set your status to appear on your profile.",
-    options = [
-      create_option(
-        name="status",
-        description="The status you want to appear on your ChessBot profile.",
-        option_type=3,
-        required=True
-      )
-    ]
+    brief="Allows you to set your status.",
+    usage="<status>"
   )
   async def _set_status(
     self,
-    ctx: SlashContext,
+    ctx: commands.Context,
     status: str
   ) -> discord.Message:
     if str(ctx.author.id) not in db["users"]:
@@ -151,36 +162,43 @@ class Commands(commands.Cog):
     
     member = ctx.author
     
-    if 'elo' in db["users"][str(member.id)]:
-      elo = db["users"][str(member.id)]['elo']
-    else:
-      elo = 600
+#     if 'elo' in db["users"][str(member.id)]:
+#       elo = db["users"][str(member.id)]['elo']
+#     else:
+#       elo = 600
 
-    if 'wins' in db["users"][str(member.id)]:
-      wins = db["users"][str(member.id)]['wins']
-    else:
-      wins = 0
+#     if 'wins' in db["users"][str(member.id)]:
+#       wins = db["users"][str(member.id)]['wins']
+#     else:
+#       wins = 0
 
-    if 'losses' in db["users"][str(member.id)]:
-      losses = db["users"][str(member.id)]['losses']
-    else:
-      losses = 0
+#     if 'losses' in db["users"][str(member.id)]:
+#       losses = db["users"][str(member.id)]['losses']
+#     else:
+#       losses = 0
 
-    if 'draws' in db["users"][str(member.id)]:
-      draws = db["users"][str(member.id)]['draws']
+#     if 'draws' in db["users"][str(member.id)]:
+#       draws = db["users"][str(member.id)]['draws']
 
-    else: 
-      draws = 0
+#     else: 
+#       draws = 0
 
-    if 'status' in db["users"][str(member.id)]:
-      status = db["users"][str(member.id)]['status']
-    else:
-       status = "___"
+#     if 'status' in db["users"][str(member.id)]:
+#       status = db["users"][str(member.id)]['status']
+#     else:
+#        status = "___"
 
-    if 'status_color' in db["users"][str(member.id)]:
-      status_color = db["users"][str(member.id)]['status_color']
-    else:
-      status_color = discord.Colour.green()
+#     if 'status_color' in db["users"][str(member.id)]:
+#       status_color = db["users"][str(member.id)]['status_color']
+#     else:
+#       status_color = discord.Colour.green()
+      
+    elo = 600 if 'elo' not in db["users"][str(member.id)] else elo = db["users"][str(member.id)]['elo']
+    wins = 0 if 'wins' not in db["users"][str(member.id)] else wins = db["users"][str(member.id)]['wins']
+    losses = 0 if 'losses' not in db["users"][str(member.id)] else losses = db["users"][str(member.id)]['losses']
+    draws = 0 if 'draws' not in db["users"][str(member.id)] else draws = db["users"][str(member.id)]['draws']
+    status = "___" if 'status' not in db["users"][str(member.id)] else status = db["users"][str(member.id)]['status']
+    status_color = discord.Colour.green() if 'status_color' not in db["users"][str(member.id)] else status_color = db["users"][str(member.id)]['status_color']
     
     return await ctx.channel.send(
       embed=discord.Embed(
@@ -205,43 +223,21 @@ class Commands(commands.Cog):
       )
     )
   
-  @cog_ext.cog_slash(
+  @commands.command(
     name="set-status-color",
     description="Allows you to set the color that appears on your status.",
-    options = [
-      create_option(
-        name="color",
-        description="The color you want to appear on your profile (int 0x format)",
-        option_type=4,
-        choices = [
-          create_choice(
-            name="Green",
-            value=0x2ECC71
-          ),
-          create_choice(
-            name="Red",
-            value=0xE74C3C
-          ),
-          create_choice(
-            name="Purple",
-            value=0x71368A
-          ),
-          create_choice(
-            name="Gold",
-            value=0xF1C40F
-          )
-        ],
-        required=False
-      )
-    ]
+    brief="Lets you set a color.",
+    usage="<color: hex>"
   )
   async def _set_status_color(
     self,
-    ctx: SlashContext,
-    color: int
+    ctx: commands.Context,
+    color: str
   ) -> discord.Message:
     if not color:
       color=discord.Colour.green()
+    else:
+      color = int(color.replace("#", "0x"), base=16)
     
     member = ctx.author
 
@@ -260,36 +256,44 @@ class Commands(commands.Cog):
     #
     
     
-    if 'elo' in db["users"][str(member.id)]:
-      elo = db["users"][str(member.id)]['elo']
-    else:
-      elo = 600
+#     if 'elo' in db["users"][str(member.id)]:
+#       elo = db["users"][str(member.id)]['elo']
+#     else:
+#       elo = 600
 
-    if 'wins' in db["users"][str(member.id)]:
-      wins = db["users"][str(member.id)]['wins']
-    else:
-      wins = 0
+#     if 'wins' in db["users"][str(member.id)]:
+#       wins = db["users"][str(member.id)]['wins']
+#     else:
+#       wins = 0
 
-    if 'losses' in db["users"][str(member.id)]:
-      losses = db["users"][str(member.id)]['losses']
-    else:
-      losses = 0
+#     if 'losses' in db["users"][str(member.id)]:
+#       losses = db["users"][str(member.id)]['losses']
+#     else:
+#       losses = 0
 
-    if 'draws' in db["users"][str(member.id)]:
-      draws = db["users"][str(member.id)]['draws']
+#     if 'draws' in db["users"][str(member.id)]:
+#       draws = db["users"][str(member.id)]['draws']
 
-    else: 
-      draws = 0
+#     else: 
+#       draws = 0
 
-    if 'status' in db["users"][str(member.id)]:
-      status = db["users"][str(member.id)]['status']
-    else:
-       status = "___"
+#     if 'status' in db["users"][str(member.id)]:
+#       status = db["users"][str(member.id)]['status']
+#     else:
+#        status = "___"
 
-    if 'status_color' in db["users"][str(member.id)]:
-      status_color = db["users"][str(member.id)]['status_color']
-    else:
-      status_color = discord.Colour.green()
+#     if 'status_color' in db["users"][str(member.id)]:
+#       status_color = db["users"][str(member.id)]['status_color']
+#     else:
+#       status_color = discord.Colour.green()
+      
+    elo = 600 if 'elo' not in db["users"][str(member.id)] else elo = db["users"][str(member.id)]['elo']
+    wins = 0 if 'wins' not in db["users"][str(member.id)] else wins = db["users"][str(member.id)]['wins']
+    losses = 0 if 'losses' not in db["users"][str(member.id)] else losses = db["users"][str(member.id)]['losses']
+    draws = 0 if 'draws' not in db["users"][str(member.id)] else draws = db["users"][str(member.id)]['draws']
+    status = "___" if 'status' not in db["users"][str(member.id)] else status = db["users"][str(member.id)]['status']
+    status_color = discord.Colour.green() if 'status_color' not in db["users"][str(member.id)] else status_color = db["users"][str(member.id)]['status_color']
+    
     
     return await ctx.channel.send(
       embed=discord.Embed(
