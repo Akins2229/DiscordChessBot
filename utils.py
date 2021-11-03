@@ -24,7 +24,7 @@ class MustBePassedInGuild(Exception):
     return self.message
     
 async def get_setup_type(
-  ctx: SlashContext,
+  ctx: commands.Context,
   command_name: str,
   member: str
 ) -> int:
