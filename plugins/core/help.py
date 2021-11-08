@@ -29,8 +29,14 @@ class Help(commands.Cog):
         cog = self.bot.get_cog(cog)
         if len(cog.get_commands()) < 1:
           continue
+
+        try:
+          cog_name = cog.name
+        except AttributeError:
+          cog_name = type(cog).__name__ + " Category:"
+        
         embed = discord.Embed(
-          title=cog.name,
+          title=cog_name,
           color=discord.Colour.dark_blue()
         ).set_footer(
           text="For more information on a specific command run {}help <command>".format(prefix)
@@ -49,6 +55,8 @@ class Help(commands.Cog):
       commands = {}
       for command_obj in self.bot.commands:
         commands[command_obj.name] = command_obj
+        for alias in command_obj.aliases:
+          commands[alias] = command_obj
       if command.lower() not in commands:
         raise InvalidCommandError(command)
       else:

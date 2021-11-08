@@ -68,10 +68,11 @@ class Commands(commands.Cog):
   )
   async def _setup(
     self,
-    ctx: commands.Context,
+    ctx: SlashContext,
     type: int,
     channel: discord.TextChannel
   ) -> discord.Message:
+    await ctx.defer()
     if channel:
       if type == 1:
         db["guilds"][str(ctx.guild.id)] = {}

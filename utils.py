@@ -12,6 +12,7 @@ import random
 import typing
 
 import discord
+from discord.ext import commands
 
 from discord_slash import SlashContext
 from replit import db
@@ -24,7 +25,7 @@ class MustBePassedInGuild(Exception):
     return self.message
     
 async def get_setup_type(
-  ctx: SlashContext,
+  ctx: commands.Context,
   command_name: str,
   member: str
 ) -> int:
@@ -49,6 +50,20 @@ async def get_setup_type(
       channel = await ctx.guild.create_text_channel("{} v. {}".fromat(ctx.author.display_name, member.display_name), category=category)
       return channel
 
+
+def register_database_user(user_id):
+  if str(user_id) in db:
+    return
+
+  else:
+    user_id = str(user_id)
+
+    db[user_id] = {}
+    db[user_id]['elo'] = 600
+    db[user_id]['wins'] = 0
+    db[user_id]['losses'] = 0
+    db[user_id]['draws'] = 0
+    db[user_id]['status'] = "___"
     
 def get_colors(
   member_one: discord.Member,

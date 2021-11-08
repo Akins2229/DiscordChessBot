@@ -19,8 +19,8 @@ from plugins.chess.data import Game, Participant
 
 import utils
 
-from discord_slash.model import ButtonStyle
-from discord_slash.utils.manage_components import create_button, create_actionrow, wait_for_component
+# from discord_slash.model import ButtonStyle
+# from discord_slash.utils.manage_components import create_button, create_actionrow, wait_for_component
 
 from replit import db
 
@@ -40,9 +40,17 @@ embed_colors = [
 class Chess(commands.Cog):
   def __init__(self, bot):
     self.bot=bot
+
+
+    self.games = {}
     
   @commands.command(
     name="play",
+    aliases = [
+      'p',
+      'chess',
+      'ch'
+    ],
     description="Allows you to play a match of chess against another user.",
     brief="Allows you to play chess against someone.",
     usage="<member>"
@@ -53,10 +61,7 @@ class Chess(commands.Cog):
     member: discord.Member
   ) -> discord.Message:
 
-    if member.id == ctx.author.id:
-      pass
-
-    if ctx.channel.id in games:
+    if ctx.channel.id in self.games:
       pass
 
     # action_row = create_actionrow(
@@ -72,14 +77,14 @@ class Chess(commands.Cog):
     emojis = ["✅", "❎"]
     
     for emoji in emojis:
-      message_obj.add_reaction(emoji)
+      await message_obj.add_reaction(emoji)
     
     try:
-      component = await self.bot.wait_for('reaction_add', check = lambda reaction, user: reaction.message == message_obj and reaction.emoji in emojis and user == [game.white.user, game.black.user].remove(ctx.author), timeout=180)
-    except asyncio.TimeOutError:
-      await ctx.send("Request to play chess timed out.")
+      component = await self.bot.wait_for('reaction_add', check = lambda reaction, user: reaction.message == message_obj and reaction.emoji in emojis and user == member, timeout=180)
+    except asyncio.TimeoutError:
+      return await ctx.send("Request to play chess timed out.")
       
-    if component[0].emojis == "❎":
+    if component[0].emoji == "❎":
       await ctx.send("Request to play chess denied.")
     
     channel = await utils.get_setup_type(ctx, "play", member)
@@ -91,11 +96,11 @@ class Chess(commands.Cog):
       Participant(
         colors[1]
       ),
-      channel
+      discord.utils.get(ctx.guild.channels, id=channel)
     )
-    self.games[channel.id] = game
+    self.games[channel] = game
     
-    return await channel.send(
+    return await discord.utils.get(ctx.guild.channels, id=channel).send(
       file=discord.File(fp=game.get_game_image(), filename="game.png"),
       embed = discord.Embed(
         color=random.choice(embed_colors)
@@ -105,6 +110,9 @@ class Chess(commands.Cog):
     
   @commands.command(
     name="move",
+    aliases = [
+      'm'
+    ],
     description="Allows you to move in a game of chess.",
     brief="Allows you to move in chess.",
     usage="<move: uci>"
@@ -114,17 +122,26 @@ class Chess(commands.Cog):
     ctx: commands.Context,
     move: str
   ) -> discord.Message:
-    if games[ctx.channel.id].get_move_user().id != ctx.author.id:
+    if self.games[ctx.channel.id].get_move_user().id != ctx.author.id:
       pass
-    if ctx.channel.id not in games:
+    if ctx.channel.id not in self.games:
       pass
     game = self.games[ctx.channel.id]
-    await game.move(move)
+    await game.make_move(move)
+    return await game.channel.send(
+      file=discord.File(fp=game.get_game_image(), filename="game.png"),
+      embed = discord.Embed(
+        color=random.choice(embed_colors)
+      ).set_author(name="{}'s move".format(self.games[ctx.channel.id].get_move_user())).set_image(url="attachment://game.png")
+    )
    
   
   
   @commands.command(
     name="resign",
+    aliases = [
+      'r'
+    ],
     description="Allows you to resign in a game of chess.",
     brief="Resigns in a chess match.",
     usage=""
@@ -133,15 +150,18 @@ class Chess(commands.Cog):
     self,
     ctx: commands.Context
   ) -> discord.Message:
-    if games[ctx.channel.id].get_move_user().id != ctx.author.id:
+    if self.games[ctx.channel.id].get_move_user().id != ctx.author.id:
       pass
-    if ctx.channel.id not in games:
+    if ctx.channel.id not in self.games:
       pass
     game = self.games[ctx.channel.id]
     return await game.end(5, 0.0, 1.0)
   
   @commands.command(
     name="draw",
+    aliases = [
+      'd'
+    ],
     brief="Requests to draw a game of chess.",
     description="Allows you to draw in a game of chess."
   )
@@ -149,12 +169,12 @@ class Chess(commands.Cog):
     self,
     ctx: commands.Context
   ) -> discord.Message:
-    if games[ctx.channel.id].get_move_user().id != ctx.author.id:
+    if self.games[ctx.channel.id].get_move_user().id != ctx.author.id:
       pass
-    if ctx.channel.id not in games:
+    if ctx.channel.id not in self.games:
       pass
 
-    game = games[ctx.channel.id]
+    game = self.games[ctx.channel.id]
      
 #     action_row = create_actionrow(
 #       create_button(style=ButtonStyle.green, label="Yes", custom_id="yes"),
@@ -162,21 +182,22 @@ class Chess(commands.Cog):
 #     )
     
     message_obj = await ctx.send(
-      "{0}, would you like to draw the match against {1}?".format([game.white.user, game.black.user].remove(ctx.author).mention, ctx.author.mention)
+      "{0}, would you like to draw the match against {1}?".format(game.get_not_move_user().mention, ctx.author.mention)
     )
     
     emojis = ["✅", "❎"]
     
     for emoji in emojis:
-      message_obj.add_reaction(emoji)
+      await message_obj.add_reaction(emoji)
     
     try:
-      component = await self.bot.wait_for('reaction_add', check = lambda reaction, user: reaction.message == message_obj and reaction.emoji in emojis and user == [game.white.user, game.black.user].remove(ctx.author), timeout=180)
-    except asyncio.TimeOutError:
+      component = await self.bot.wait_for('reaction_add', check = lambda reaction, user: reaction.message == message_obj and reaction.emoji in emojis and user == game.get_not_move_user(), timeout=180)
+    except asyncio.TimeoutError:
       return await ctx.send("Request to draw timed out.")
     
     if component[0].emoji == "❎":
       return await ctx.send("Request to draw denied.")
+    
     return await game.end(2, 0.5, 0.5)
 
   @commands.command(

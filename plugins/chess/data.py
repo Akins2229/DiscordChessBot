@@ -12,13 +12,15 @@ import typing
 import discord
 from discord.ext import commands
 
-from discord_slash import cog_ext, SlashContext
+# from discord_slash import cog_ext, SlashContext
 
 import chess
 import chess.svg
 
 from replit import db
 import cairosvg
+
+import utils
 
 game_endings = {
   1: "Win by checkmate.",
@@ -78,6 +80,8 @@ class Participant:
     discord_user: discord.Member
   ) -> None:
     self.user = discord_user
+
+    # self.id = discord_user.id
     
     self.post_elo = 0
     
@@ -91,7 +95,7 @@ class Participant:
     else:
       return 600
     
-  def add_elo(
+  def add_points(
     self,
     points: float
   ) -> None:
@@ -131,15 +135,15 @@ class Game:
     self
   ) -> typing.Tuple[int, float, float]:
     if self.board.is_checkmate():
-      return (1, 1.0, 0.0, 1.0)
+      return (1, 1.0, 0.0)
     elif self.board.is_stalemate():
       return (3, 0.5, 0.5)
-    elif self.board.is_fivefold_repition():
+    elif self.board.is_fivefold_repetition():
       return (4, 0.5, 0.5)
     else:
       return (0, 0.0, 0.0)
   
-  def move(
+  async def make_move(
     self,
     move: str
   ) -> None:
@@ -148,7 +152,7 @@ class Game:
       if move not in self.board.legal_moves:
         raise IllegalMoveError(move)
       self.board.push(move_obj)
-      self.move = [True, False].remove(self.move)
+      self.move = not self.move
       if self.validate_position()[0] == 0:
         pass
       else:
@@ -164,36 +168,63 @@ class Game:
     if self.move == True:
       return self.white.user
     else:
-      return self.black.member
+      return self.black.user
 
-async def end(
-  self,
-  type: int,
-  member_1_score: float,
-  member_2_score: float
-) -> discord.Message:
-  if self.move == True:
-    member_1 = self.white
-  else:
-     member_1 = self.black
-  member_2 = [self.white, self.black].remove(member_1)
-  
-  if member_1_score == 1.0: db[str(member_1.id)]['wins'] +=1
-  if member_2_score == 1.0: db[str(member_2.id)]['wins'] +=1
-  
-  if member_1_score == 0.0: db[str(member_1.id)]['losses'] +=1
-  if member_2_score == 1.0: db[str(member_2.id)]['losses'] +=1
-  
-  if member_1_score == 0.5: db[str(member_1.id)]['draws'] +=1
-  if member_2_score == 0.5: db[str(member_2.id)]['draws'] +=1
-  
-  member_1.add_points(18.5 * (1 / (1 + 10 ** ((member_2.elo - member_1.elo) / 400))) - member_1_score)
-  member_2.add_points(18.5 * (1 / (1 + 10 ** ((member_1.elo - member_2.elo) / 400))) - member_2_score)
-  
-  return await self.channel.send(
-    file=discord.File(fp=self.get_game_image(), filename="game.png"),
-    embed=discord.Embed(
-      description=game_endings[type],
-      color = discord.Colour.green()
-    ).set_author(name="Chess Match End.").add_field(title=member_1.user.display_name, value=member_1.elo).add_field(title=member_2.user.display_name, value=member_2.elo)
-  )
+  def get_not_move_user(
+   self
+  ) -> discord.Member:
+    if self.move == False:
+      return self.white.user
+    else:
+      return self.black.user
+
+  def get_move_participant(
+   self
+  ) -> discord.Member:
+    if self.move == True:
+      return self.white
+    else:
+      return self.black
+
+  def get_not_move_participant(
+   self
+  ) -> discord.Member:
+    if self.move == False:
+      return self.white
+    else:
+      return self.black
+
+  async def end(
+    self,
+    type: int,
+    member_1_score: float,
+    member_2_score: float
+  ) -> discord.Message:
+    member_1 = self.get_move_participant()
+    member_2 = self.get_not_move_participant()
+
+    if str(member_1.id) not in db:
+      utils.register_database_user(member_1.id)
+
+    if str(member_2.id) not in db:
+      utils.register_database_user(member_2.id)
+    
+    if member_1_score == 1.0: db[str(member_1.id)]['wins'] = db[str(member_1.id)]['wins'] + 1
+    if member_2_score == 1.0: db[str(member_2.id)]['wins'] = db[str(member_2.id)]['wins'] + 1
+    
+    if member_1_score == 0.0: db[str(member_1.id)]['losses'] = db[str(member_1.id)]['losses'] + 1
+    if member_2_score == 0.0: db[str(member_2.id)]['losses'] = db[str(member_2.id)]['losses'] + 1
+    
+    if member_1_score == 0.5: db[str(member_1.id)]['draws'] = db[str(member_1.id)]['draws'] + 1
+    if member_2_score == 0.5: db[str(member_2.id)]['draws'] = db[str(member_2.id)]['draws'] + 1
+    
+    member_1.add_points(18.5 * (1 / (1 + 10 ** ((member_2.elo - member_1.elo) / 400))) - member_1_score)
+    member_2.add_points(18.5 * (1 / (1 + 10 ** ((member_1.elo - member_2.elo) / 400))) - member_2_score)
+    
+    return await self.channel.send(
+      file=discord.File(fp=self.get_game_image(), filename="game.png"),
+      embed=discord.Embed(
+        description=game_endings[type],
+        color = discord.Colour.green()
+      ).set_author(name="Chess Match End.").add_field(name=member_1.user.display_name, value=member_1.elo).add_field(name=member_2.user.display_name, value=member_2.elo)
+    )
