@@ -27,7 +27,7 @@ class OnCommandError(commands.Cog):
       embed=discord.Embed(
         description="```\n{}```".format(exception),
         color=discord.Colour.red()
-      ).set_author(name="Slash Command Error")
+      ).set_author(name="Command Error")
     )
   
 def setup(bot: commands.Bot):

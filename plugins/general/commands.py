@@ -123,7 +123,7 @@ class Commands(commands.Cog):
         color=discord.Colour.blue()
       ).set_image(
         url="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-      ).set_footer(text="Akins2229/DiscordChessBot v7.0)
+      ).set_footer(text="Akins2229/DiscordChessBot v7.0")
     )
       
     return await ctx.send(
@@ -133,7 +133,7 @@ class Commands(commands.Cog):
         color=discord.Colour.blue()
       ).set_image(
         url="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-      ).set_footer(text="Akins2229/DiscordChessBot v7.0)
+      ).set_footer(text="Akins2229/DiscordChessBot v7.0")
     )
   
   @commands.command(
@@ -162,43 +162,43 @@ class Commands(commands.Cog):
     
     member = ctx.author
     
-#     if 'elo' in db["users"][str(member.id)]:
-#       elo = db["users"][str(member.id)]['elo']
-#     else:
-#       elo = 600
+    if 'elo' in db["users"][str(member.id)]:
+      elo = db["users"][str(member.id)]['elo']
+    else:
+      elo = 600
 
-#     if 'wins' in db["users"][str(member.id)]:
-#       wins = db["users"][str(member.id)]['wins']
-#     else:
-#       wins = 0
+    if 'wins' in db["users"][str(member.id)]:
+      wins = db["users"][str(member.id)]['wins']
+    else:
+      wins = 0
 
-#     if 'losses' in db["users"][str(member.id)]:
-#       losses = db["users"][str(member.id)]['losses']
-#     else:
-#       losses = 0
+    if 'losses' in db["users"][str(member.id)]:
+      losses = db["users"][str(member.id)]['losses']
+    else:
+      losses = 0
 
-#     if 'draws' in db["users"][str(member.id)]:
-#       draws = db["users"][str(member.id)]['draws']
+    if 'draws' in db["users"][str(member.id)]:
+      draws = db["users"][str(member.id)]['draws']
 
-#     else: 
-#       draws = 0
+    else: 
+      draws = 0
 
-#     if 'status' in db["users"][str(member.id)]:
-#       status = db["users"][str(member.id)]['status']
-#     else:
-#        status = "___"
+    if 'status' in db["users"][str(member.id)]:
+      status = db["users"][str(member.id)]['status']
+    else:
+       status = "___"
 
-#     if 'status_color' in db["users"][str(member.id)]:
-#       status_color = db["users"][str(member.id)]['status_color']
-#     else:
-#       status_color = discord.Colour.green()
+    if 'status_color' in db["users"][str(member.id)]:
+      status_color = db["users"][str(member.id)]['status_color']
+    else:
+      status_color = discord.Colour.green()
       
-    elo = 600 if 'elo' not in db["users"][str(member.id)] else elo = db["users"][str(member.id)]['elo']
-    wins = 0 if 'wins' not in db["users"][str(member.id)] else wins = db["users"][str(member.id)]['wins']
-    losses = 0 if 'losses' not in db["users"][str(member.id)] else losses = db["users"][str(member.id)]['losses']
-    draws = 0 if 'draws' not in db["users"][str(member.id)] else draws = db["users"][str(member.id)]['draws']
-    status = "___" if 'status' not in db["users"][str(member.id)] else status = db["users"][str(member.id)]['status']
-    status_color = discord.Colour.green() if 'status_color' not in db["users"][str(member.id)] else status_color = db["users"][str(member.id)]['status_color']
+    # elo = 600 if 'elo' not in db["users"][str(member.id)] else elo = db["users"][str(member.id)]['elo']
+    # wins = 0 if 'wins' not in db["users"][str(member.id)] else wins = db["users"][str(member.id)]['wins']
+    # losses = 0 if 'losses' not in db["users"][str(member.id)] else losses = db["users"][str(member.id)]['losses']
+    # draws = 0 if 'draws' not in db["users"][str(member.id)] else draws = db["users"][str(member.id)]['draws']
+    # status = "___" if 'status' not in db["users"][str(member.id)] else status = db["users"][str(member.id)]['status']
+    # status_color = discord.Colour.green() if 'status_color' not in db["users"][str(member.id)] else status_color = db["users"][str(member.id)]['status_color']
     
     return await ctx.channel.send(
       embed=discord.Embed(
@@ -256,43 +256,43 @@ class Commands(commands.Cog):
     #
     
     
-#     if 'elo' in db["users"][str(member.id)]:
-#       elo = db["users"][str(member.id)]['elo']
-#     else:
-#       elo = 600
+    if 'elo' in db["users"][str(member.id)]:
+      elo = db["users"][str(member.id)]['elo']
+    else:
+      elo = 600
 
-#     if 'wins' in db["users"][str(member.id)]:
-#       wins = db["users"][str(member.id)]['wins']
-#     else:
-#       wins = 0
+    if 'wins' in db["users"][str(member.id)]:
+      wins = db["users"][str(member.id)]['wins']
+    else:
+      wins = 0
 
-#     if 'losses' in db["users"][str(member.id)]:
-#       losses = db["users"][str(member.id)]['losses']
-#     else:
-#       losses = 0
+    if 'losses' in db["users"][str(member.id)]:
+      losses = db["users"][str(member.id)]['losses']
+    else:
+      losses = 0
 
-#     if 'draws' in db["users"][str(member.id)]:
-#       draws = db["users"][str(member.id)]['draws']
+    if 'draws' in db["users"][str(member.id)]:
+      draws = db["users"][str(member.id)]['draws']
 
-#     else: 
-#       draws = 0
+    else: 
+      draws = 0
 
-#     if 'status' in db["users"][str(member.id)]:
-#       status = db["users"][str(member.id)]['status']
-#     else:
-#        status = "___"
+    if 'status' in db["users"][str(member.id)]:
+      status = db["users"][str(member.id)]['status']
+    else:
+       status = "___"
 
-#     if 'status_color' in db["users"][str(member.id)]:
-#       status_color = db["users"][str(member.id)]['status_color']
-#     else:
-#       status_color = discord.Colour.green()
+    if 'status_color' in db["users"][str(member.id)]:
+      status_color = db["users"][str(member.id)]['status_color']
+    else:
+      status_color = discord.Colour.green()
       
-    elo = 600 if 'elo' not in db["users"][str(member.id)] else elo = db["users"][str(member.id)]['elo']
-    wins = 0 if 'wins' not in db["users"][str(member.id)] else wins = db["users"][str(member.id)]['wins']
-    losses = 0 if 'losses' not in db["users"][str(member.id)] else losses = db["users"][str(member.id)]['losses']
-    draws = 0 if 'draws' not in db["users"][str(member.id)] else draws = db["users"][str(member.id)]['draws']
-    status = "___" if 'status' not in db["users"][str(member.id)] else status = db["users"][str(member.id)]['status']
-    status_color = discord.Colour.green() if 'status_color' not in db["users"][str(member.id)] else status_color = db["users"][str(member.id)]['status_color']
+    # elo = 600 if 'elo' not in db["users"][str(member.id)] else elo = db["users"][str(member.id)]['elo']
+    # wins = 0 if 'wins' not in db["users"][str(member.id)] else wins = db["users"][str(member.id)]['wins']
+    # losses = 0 if 'losses' not in db["users"][str(member.id)] else losses = db["users"][str(member.id)]['losses']
+    # draws = 0 if 'draws' not in db["users"][str(member.id)] else draws = db["users"][str(member.id)]['draws']
+    # status = "___" if 'status' not in db["users"][str(member.id)] else status = db["users"][str(member.id)]['status']
+    # status_color = discord.Colour.green() if 'status_color' not in db["users"][str(member.id)] else status_color = db["users"][str(member.id)]['status_color']
     
     
     return await ctx.channel.send(

@@ -41,7 +41,8 @@ def main():
     'plugins.core.errors.on_command_error',
     'plugins.core.startup.on_ready',
     'plugins.chess.chess',
-    'plugins.general.commands' # a general cog for commands to avoid overcategorization
+    'plugins.general.commands', # a general cog for commands to avoid overcategorization
+    'plugins.core.help'
   ]
   for cog in cogs:
     bot.load_extension(cog)
