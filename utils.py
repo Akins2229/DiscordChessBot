@@ -17,7 +17,7 @@ from discord_slash import SlashContext
 from replit import db
 
 class MustBePassedInGuild(Exception):
-  def __init__(self, command_name: str) -> None:
+  def __init__(self, command_name) -> None:
     self.message="Command {} must be passed within a guild (server)."
   
   def __repr__(self) -> str:

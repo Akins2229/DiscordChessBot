@@ -1,5 +1,0 @@
-setuptools==56.0.0
-discord.py==1.7.3
-cairosvg==2.5.2
-chess==1.6.1
-discord-py-interactions==3.0.2

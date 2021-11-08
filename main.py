@@ -36,7 +36,7 @@ bot = commands.Bot(
 
 slash = SlashCommand(bot, sync_commands=True)
 
-def main() -> None:
+def main():
   cogs = [
     'plugins.core.errors.on_command_error',
     'plugins.core.startup.on_ready',

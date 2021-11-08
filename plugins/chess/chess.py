@@ -38,7 +38,7 @@ embed_colors = [
   
   
 class Chess(commands.Cog):
-  def __init__(self, bot: commands.Bot):
+  def __init__(self, bot):
     self.bot=bot
     
   @commands.command(
@@ -59,10 +59,10 @@ class Chess(commands.Cog):
     if ctx.channel.id in games:
       pass
 
-    action_row = create_actionrow(
-          create_button(style=ButtonStyle.green, label="Yes", custom_id="yes"),
-          create_button(style=ButtonStyle.red, label="No", custom_id="no"),
-        )
+    # action_row = create_actionrow(
+    #       create_button(style=ButtonStyle.green, label="Yes", custom_id="yes"),
+    #       create_button(style=ButtonStyle.red, label="No", custom_id="no"),
+    #     )
     
 
     message_obj = await ctx.channel.send(
